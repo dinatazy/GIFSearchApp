@@ -8,7 +8,7 @@ export const searchSlice = createSlice({
   },
   extraReducers: {
     [getSearchResults.fulfilled]: (state, action) => {
-      action.payload.data ? state.gifList = action.payload.data : null;
+      action.payload.updatedGifList ? state.gifList = action.payload.updatedGifList : null;
     },
   }
 })
