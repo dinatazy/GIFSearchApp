@@ -4,13 +4,14 @@ import { useTheme } from '@rneui/themed';
 import { View, StyleSheet } from 'react-native';
 
 
-const SearchBar = () => {
+const SearchBar = ({ getResults }) => {
 
   const { theme } = useTheme();
   const [search, setSearch] = useState("");
 
   const updateSearch = (search) => {
     setSearch(search);
+    getResults(search)
   };
 
   const styles = StyleSheet.create({
@@ -28,7 +29,7 @@ const SearchBar = () => {
 
     searchbarInputContainer: {
       backgroundColor: theme.colors.primary,
-      height:40,
+      height: 40,
     }
 
   });
