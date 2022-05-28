@@ -7,7 +7,6 @@ export const getSearchResults = createAsyncThunk('search/getSearchResults', asyn
     let { offset } = params;
     let updatedGifList = []
     const response = await request('GET', 'gifs/search', params, null);
-    console.log('response', response)
     if (response.data) {
       if (offset > 0) {
         updatedGifList = [...gifList, ...response.data.data];
@@ -19,7 +18,6 @@ export const getSearchResults = createAsyncThunk('search/getSearchResults', asyn
       return { ok: false }
     }
   } catch (err) {
-    console.log('err', err)
     return false;
   }
 });

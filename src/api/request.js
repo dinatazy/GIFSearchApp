@@ -7,8 +7,6 @@ export const request = async (method, url, params = null, data = null) => {
     params,
     data,
   };
-  console.log('config', config);
-
   try {
     const res = await axios.request(config);
     console.log('res', res)
