@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useLayoutEffect } from 'react';
+import React, { useEffect, useState, useLayoutEffect, useCallback } from 'react';
 import { View, FlatList, ActivityIndicator } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useTheme } from '@rneui/themed';
@@ -7,6 +7,7 @@ import { SearchBar } from '../../component/search-bar/SearchBar'
 import { GifItem } from '../../component/gif-item/GifItem'
 import { getSearchResults } from '../../redux/action/Search'
 import { useDispatch, useSelector } from 'react-redux';
+import debounce from 'lodash.debounce'
 
 const GIFSearch = ({ navigation }) => {
 
@@ -37,9 +38,13 @@ const GIFSearch = ({ navigation }) => {
 
   useEffect(() => {
     if (searchText.length >= 3) {
-      fetchGifs(searchText, offset);
+      debouncedFetchGifs(searchText, offset);
     }
   }, [searchText])
+
+  const debouncedFetchGifs = useCallback(debounce((q, offset) => {
+    fetchGifs(q, offset)
+  }, 500), [])
 
   const fetchGifs = async (q, offset) => {
     const params = {
