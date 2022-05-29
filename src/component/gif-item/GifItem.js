@@ -25,7 +25,7 @@ const GifItem = ({ item }) => {
       <Image
         style={styles.gif}
         resizeMode='contain'
-        source={{ uri: item.images.downsized.url }}
+        source={{ uri: item.images.fixed_height_small.url }}
       />
     </View>
   );
