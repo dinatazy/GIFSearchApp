@@ -3,7 +3,6 @@ import { SearchBar as SearchBarComponent } from '@rneui/themed';
 import { useTheme } from '@rneui/themed';
 import { View, StyleSheet } from 'react-native';
 
-
 const SearchBar = ({ getResults }) => {
 
   const { theme } = useTheme();

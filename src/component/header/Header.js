@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  StyleSheet,
-  View,
-} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Header as HeaderRNE } from '@rneui/themed';
 
 const Header = ({ title }) => {

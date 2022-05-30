@@ -23,7 +23,7 @@ const GIFSearch = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      header: ({ navigation }) => (
+      header: () => (
         <Header
           title='GIF Search'
         />
@@ -39,11 +39,11 @@ const GIFSearch = ({ navigation }) => {
 
   useEffect(() => {
     if (searchText.length >= 3) {
-      debouncedFetchGifs(searchText, offset);
+      debouncedFetchGifs(searchText);
     }
   }, [searchText])
 
-  const debouncedFetchGifs = useCallback(debounce((q, offset) => {
+  const debouncedFetchGifs = useCallback(debounce((q, offset = 0) => {
     fetchGifs(q, offset)
   }, 500), [])
 
@@ -55,16 +55,16 @@ const GIFSearch = ({ navigation }) => {
       api_key: 'BvFV6zTeyxB9U8Y4SZsxL0Hn3MmHkuXq'
     }
     try {
-      setIsLoading(true)
+      offset == 0 ? setIsLoading(true) : setIsLoadingMore(true)
       const response = await dispatch(getSearchResults(params)).unwrap();
-      setIsLoading(false)
+      offset == 0 ? setIsLoading(false) : setIsLoadingMore(false)
       if (response.ok) {
         let { total_count } = response.pagination
         setTotalCount(total_count)
       }
     } catch (err) {
       // error
-      setIsLoading(false)
+      offset == 0 ? setIsLoading(false) : setIsLoadingMore(false)
     }
   }
 
@@ -81,9 +81,7 @@ const GIFSearch = ({ navigation }) => {
   }
 
   const loadMoreGifs = async () => {
-    setIsLoadingMore(true);
     await fetchGifs(searchText, offset);
-    setIsLoadingMore(false);
   }
 
   const renderFooter = () => {
@@ -180,7 +178,6 @@ const GIFSearch = ({ navigation }) => {
       alignItems: 'center',
       justifyContent: 'center',
     },
-
 
   });
 
